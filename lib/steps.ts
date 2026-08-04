@@ -7,6 +7,16 @@ export const ACCOUNT_OPTIONS = [
   'Other',
 ];
 
+export const BABY_STEP_OPTIONS = [
+  'Step 1 - $1,000 starter emergency fund',
+  'Step 2 - Pay off all debt (debt snowball)',
+  'Step 3 - 3-6 months of expenses saved',
+  'Step 4 - Invest 15% for retirement',
+  "Step 5 - Save for kids' college",
+  'Step 6 - Pay off the home early',
+  'Step 7 - Build wealth and give',
+];
+
 export const DEMO_CODE = '123456';
 
 export const LOADING_DURATION_MS = 5000;
@@ -25,6 +35,8 @@ export function randomMessageOffsets(count: number, total: number) {
 
 export type Answers = {
   retirementAge?: string;
+  babyStepsFamiliar?: string;
+  babyStep?: string;
   currentAge?: string;
   name?: string;
   income?: string;
@@ -82,6 +94,19 @@ export const steps: StepDef[] = [
     key: 'retirementAge',
     question: 'When do you hope to retire?',
     placeholder: 'Enter your target retirement age',
+  },
+  {
+    type: 'choice',
+    key: 'babyStepsFamiliar',
+    question: "Are you familiar with Dave Ramsey's baby steps?",
+    options: ['Yes', 'No'],
+  },
+  {
+    type: 'choice',
+    key: 'babyStep',
+    question: "Which of the 7 Baby Steps are you on right now?",
+    options: BABY_STEP_OPTIONS,
+    when: (a) => a.babyStepsFamiliar === 'Yes',
   },
   {
     type: 'input',

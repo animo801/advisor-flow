@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAnswers } from '@/components/flow-provider';
 import { StepRenderer } from '@/components/step-screens';
+import { trackLead } from '@/lib/meta-pixel';
 import {
   isVisible,
   nextVisibleIndex,
@@ -40,9 +41,11 @@ export default function FlowStepPage() {
     const merged = { ...answers, ...patch };
     patchAnswers(patch);
     const next = nextVisibleIndex(stepIndex + 1, merged);
-    router.push(
-      next >= steps.length ? '/loading' : `/flow/${slugFor(steps[next].key)}`,
-    );
+    const isComplete = next >= steps.length;
+    if (isComplete && merged.phone) {
+      trackLead({ phone: merged.phone, name: merged.name });
+    }
+    router.push(isComplete ? '/loading' : `/flow/${slugFor(steps[next].key)}`);
   }
 
   return (

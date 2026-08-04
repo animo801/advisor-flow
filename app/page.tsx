@@ -16,10 +16,10 @@ export default function Home() {
     <div className='relative mx-auto px-6 mt-8 md:pt-24 flex flex-col-reverse md:flex-row max-w-[560px] md:max-w-[1200px] gap-8'>
       {/* Left column: headline + subtext + CTA */}
       <div className='flex flex-col  mx-auto '>
-        <h1 className='text-black font-black text-4xl md:text-6xl xl:text-7xl mb-2'>
-          Stop dreading retirement. Get a plan from our team.
+        <h1 className='font-semibold text-[36px] md:text-6xl xl:text-[72px] mb-2 leading-[.9]'>
+          Get a personalized plan from our team. 100% free.
         </h1>
-        <p className='text-black font-normal text-xl md:text-2xl'>
+        <p className='text-black font-normal text-xl md:text-3xl'>
           The best way to have peace of mind is from a plan you believe in from
           someone who believes in you.
         </p>

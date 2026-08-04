@@ -78,7 +78,10 @@ function StepShell({
   footer: React.ReactNode;
 }) {
   return (
-    <div className='relative mx-auto w-full px-6'>
+    <div
+      className='relative mx-auto w-full px-6 md:pt-16 md:pb-16'
+      style={{ maxWidth: 560 }}
+    >
       <ProgressBar progress={progress} />
       <h2
         className='text-black font-black text-3xl md:text-5xl'
