@@ -8,7 +8,7 @@ import { META_PIXEL_ID } from '@/lib/meta-pixel';
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '900'],
+  weight: ['400', '700', '900'],
   variable: '--font-inter',
 });
 

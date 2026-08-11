@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import heroImage from '../public/hero-plan-card.png';
+import familyBeachImage from '../public/hero/family-beach.png';
 import { slugFor, steps } from '@/lib/steps';
+import { TrustedBy } from '@/components/trusted-by';
 
 export default function Home() {
   const router = useRouter();
@@ -13,40 +14,37 @@ export default function Home() {
   }
 
   return (
-    <div className='relative mx-auto px-6 mt-8 md:pt-24 flex flex-col-reverse md:flex-row max-w-[560px] md:max-w-[1200px] gap-8'>
-      {/* Left column: headline + subtext + CTA */}
-      <div className='flex flex-col  mx-auto '>
-        <h1 className='font-semibold text-[36px] md:text-6xl xl:text-[72px] mb-2 leading-[.9]'>
-          Get a personalized plan from our team. 100% free.
+    <section className='relative flex flex-col-reverse lg:flex-row lg:items-stretch'>
+      {/* Left column: headline + subtext + CTA + social proof */}
+      <div className='flex flex-col justify-center px-4 py-6 lg:py-24 lg:pl-[62px] lg:pr-12 lg:w-[768px] lg:flex-none w-full sm:max-w-[440px] md:max-w-none mx-auto'>
+        <h1 className='font-bold text-black text-[30px] lg:text-[56px] leading-none max-w-[642px]'>
+          Stop dreading your future. Free retirement review for new clients.
         </h1>
-        <p className='text-black font-normal text-xl md:text-3xl'>
-          The best way to have peace of mind is from a plan you believe in from
-          someone who believes in you.
+        <p className='mt-2 text-black text-xl lg:text-2xl max-w-[642px]'>
+          Our team will go through your current plan and find opportunities to
+          improve. All free for new customers.
         </p>
         <button
           onClick={start}
-          className='flex items-center justify-center text-white font-black rounded-lg cursor-pointer'
-          style={{
-            marginTop: 24,
-            width: 239,
-            height: 64,
-            backgroundColor: '#249ba2',
-            fontSize: 20,
-          }}
+          className='mt-8 flex items-center justify-center text-white font-bold text-lg rounded-md cursor-pointer bg-[#249ba2] hover:bg-[#1f8790] transition-colors'
+          style={{ width: 239, height: 64 }}
         >
           Request a plan
         </button>
+
+        <TrustedBy />
       </div>
 
-      <div className='relative w-full max-w-[280px] md:max-w-full'>
+      {/* Right column: hero photo */}
+      <div className='relative min-h-[400px] lg:min-h-0 lg:flex-1'>
         <Image
-          src={heroImage}
-          alt='test'
-          className='w-full'
-          height={400}
-          width={1000}
+          src={familyBeachImage}
+          alt='Family walking into the ocean together'
+          fill
+          priority
+          className='object-cover '
         />
       </div>
-    </div>
+    </section>
   );
 }
