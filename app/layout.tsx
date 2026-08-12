@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={`${inter.variable} h-full antialiased`}>
-      <body className='min-h-full flex flex-col'>
+      <body className='h-full flex flex-col overflow-hidden'>
         {/* Meta Pixel Code */}
         <Script id='meta-pixel' strategy='afterInteractive'>
           {`
@@ -51,10 +51,10 @@ export default function RootLayout({
           />
         </noscript>
         {/* End Meta Pixel Code */}
-        <nav className='px-6 py-4'>
+        <nav className='shrink-0 px-6 py-4'>
           <Image src={logo} alt='' width={240} />
         </nav>
-        <div className='relative min-h-screen bg-white overflow-x-clip font-sans'>
+        <div className='relative flex flex-1 min-h-0 flex-col overflow-x-clip overflow-y-auto bg-white font-sans'>
           {children}
         </div>
       </body>

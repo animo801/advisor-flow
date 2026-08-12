@@ -23,11 +23,11 @@ export function TrustedBy() {
         Trusted by over 1k people
       </p>
       <div className='group relative mt-6 max-w-[480px] overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_24px,black_calc(100%-24px),transparent)]'>
-        <div className='animate-marquee group-hover:[animation-play-state:paused] flex w-max gap-6'>
+        <div className='animate-marquee group-hover:[animation-play-state:paused] flex w-max'>
           {LOOPED_CLIENTS.map((client, i) => (
             <div
               key={`${client.name}-${i}`}
-              className='flex-none flex flex-col items-center gap-1'
+              className='flex-none flex flex-col items-center gap-1 mr-6'
             >
               <Image
                 src={client.photo}

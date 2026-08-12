@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   return (
-    <section className='relative flex flex-col-reverse lg:flex-row lg:items-stretch'>
+    <section className='relative flex flex-col-reverse lg:flex-row lg:flex-1 lg:min-h-0 lg:items-stretch'>
       {/* Left column: headline + subtext + CTA + social proof */}
       <div className='flex flex-col justify-center px-4 py-6 lg:py-24 lg:pl-[62px] lg:pr-12 lg:w-[768px] lg:flex-none w-full sm:max-w-[440px] md:max-w-none mx-auto'>
         <h1 className='font-bold text-black text-[30px] lg:text-[56px] leading-none max-w-[642px]'>
@@ -36,7 +36,7 @@ export default function Home() {
       </div>
 
       {/* Right column: hero photo */}
-      <div className='relative min-h-[320px] lg:min-h-0 lg:flex-1'>
+      <div className='relative min-h-[320px] lg:min-h-0 lg:flex-1 lg:max-w-180'>
         <Image
           src={familyBeachImage}
           alt='Family walking into the ocean together'
