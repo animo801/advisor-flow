@@ -29,14 +29,14 @@ export default function Home() {
           className='mt-8 flex items-center justify-center text-white font-bold text-lg rounded-md cursor-pointer bg-[#249ba2] hover:bg-[#1f8790] transition-colors'
           style={{ width: 239, height: 64 }}
         >
-          Request a plan
+          Get your review
         </button>
 
         <TrustedBy />
       </div>
 
       {/* Right column: hero photo */}
-      <div className='relative min-h-[400px] lg:min-h-0 lg:flex-1'>
+      <div className='relative min-h-[320px] lg:min-h-0 lg:flex-1'>
         <Image
           src={familyBeachImage}
           alt='Family walking into the ocean together'

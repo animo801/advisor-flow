@@ -51,7 +51,7 @@ export default function LoadingPage() {
         />
       </div>
       <p
-        className='text-black font-black'
+        className='text-black font-bold'
         style={{ marginTop: 24, fontSize: 20 }}
       >
         {LOADING_MESSAGES[messageIndex]}

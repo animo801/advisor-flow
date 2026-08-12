@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import {
-  DEMO_CODE,
   patchOf,
   resolveQuestion,
   type Answers,
@@ -32,7 +31,7 @@ export function BackButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className='flex items-center justify-center text-black font-black rounded-lg bg-[#d9d9d9]/30 hover:bg-[#d9d9d9]/50 cursor-pointer transition-colors'
+      className='flex items-center justify-center text-black font-bold rounded-lg bg-[#d9d9d9]/30 hover:bg-[#d9d9d9]/50 cursor-pointer transition-colors'
       style={{ width: 120, height: 56, fontSize: 18 }}
     >
       Back
@@ -53,7 +52,7 @@ export function ContinueButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className='flex items-center justify-center text-white font-black rounded-lg cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-opacity'
+      className='flex items-center justify-center text-white font-bold rounded-lg cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-opacity'
       style={{
         width: 160,
         height: 56,
@@ -79,24 +78,26 @@ function StepShell({
 }) {
   return (
     <div
-      className='relative mx-auto w-full px-6 md:pt-16 md:pb-16'
+      className='relative mx-auto w-full px-6 pb-24 md:pt-16 md:pb-24'
       style={{ maxWidth: 560 }}
     >
       <ProgressBar progress={progress} />
       <h2
-        className='text-black font-black text-3xl md:text-5xl'
-        style={{ marginTop: 35 }}
+        className='text-black font-bold text-3xl md:text-5xl'
+        style={{ marginTop: 35, lineHeight: 1.05 }}
       >
         {question}
       </h2>
       <div className='flex flex-col gap-4' style={{ marginTop: 45 }}>
         {children}
       </div>
-      <div
-        className='flex items-center justify-between'
-        style={{ marginTop: 24 }}
-      >
-        {footer}
+      <div className='fixed bottom-0 left-0 right-0 bg-white'>
+        <div
+          className='flex items-center justify-between px-6 py-4 mx-auto'
+          style={{ maxWidth: 560 }}
+        >
+          {footer}
+        </div>
       </div>
     </div>
   );
@@ -157,8 +158,8 @@ function InputScreen({
       <div className='relative'>
         {step.kind === 'currency' && (
           <span
-            className='absolute inset-y-0 left-6 flex items-center text-black font-black pointer-events-none'
-            style={{ fontSize: 24 }}
+            className='absolute inset-y-0 left-6 flex items-center text-black font-bold pointer-events-none'
+            style={{ fontSize: 18 }}
           >
             $
           </span>
@@ -179,10 +180,10 @@ function InputScreen({
           onKeyDown={(e) => {
             if (e.key === 'Enter') submit();
           }}
-          className='w-full text-left text-black font-black rounded-md bg-[#d9d9d9]/30 placeholder:font-normal placeholder:text-black/40 outline-none focus:bg-[#d9d9d9]/50 transition-colors'
+          className='w-full text-left text-black font-bold rounded-md bg-[#d9d9d9]/30 placeholder:font-normal placeholder:text-black/40 outline-none focus:bg-[#d9d9d9]/50 transition-colors'
           style={{
             height: 80,
-            fontSize: 24,
+            fontSize: 18,
             paddingLeft: step.kind === 'currency' ? 40 : 24,
           }}
         />
@@ -214,8 +215,12 @@ function ChoiceScreen({
         <button
           key={option}
           onClick={() => onSelect(option)}
-          className='w-full flex items-center rounded-md bg-[#d9d9d9]/30 hover:bg-[#d9d9d9]/50 text-left text-black font-black transition-colors cursor-pointer'
-          style={{ height: 80, fontSize: 24, paddingLeft: 24 }}
+          className='w-full flex items-center rounded-md bg-[#d9d9d9]/30 hover:bg-[#d9d9d9]/50 text-left text-black font-bold transition-colors cursor-pointer px-6 py-4'
+          style={{
+            minHeight: 80,
+            fontSize: 18,
+            lineHeight: 1.15,
+          }}
         >
           {option}
         </button>
@@ -264,16 +269,15 @@ function MultiselectScreen({
           <button
             key={option}
             onClick={() => toggle(option)}
-            className={`w-full flex items-center justify-between rounded-md text-left text-black font-black transition-colors cursor-pointer border-2 ${
+            className={`w-full flex items-center justify-between rounded-md text-left text-black font-bold transition-colors cursor-pointer border-2 px-6 py-4 ${
               isSelected
                 ? 'bg-[#249ba2]/10 border-[#249ba2]'
                 : 'bg-[#d9d9d9]/30 border-transparent hover:bg-[#d9d9d9]/50'
             }`}
             style={{
-              height: 80,
-              fontSize: 24,
-              paddingLeft: 24,
-              paddingRight: 24,
+              minHeight: 80,
+              fontSize: 18,
+              lineHeight: 1.15,
             }}
           >
             {option}
@@ -328,13 +332,13 @@ function BalanceScreen({
     >
       {accounts.map((account) => (
         <div key={account} className='flex flex-col gap-2'>
-          <label className='text-black font-black' style={{ fontSize: 14 }}>
+          <label className='text-black font-bold' style={{ fontSize: 14 }}>
             {account}
           </label>
           <div className='relative'>
             <span
-              className='absolute inset-y-0 left-6 flex items-center text-black font-black pointer-events-none'
-              style={{ fontSize: 24 }}
+              className='absolute inset-y-0 left-6 flex items-center text-black font-bold pointer-events-none'
+              style={{ fontSize: 18 }}
             >
               $
             </span>
@@ -353,76 +357,12 @@ function BalanceScreen({
                   [account]: e.target.value.replace(/[^0-9]/g, ''),
                 }))
               }
-              className='w-full text-left text-black font-black rounded-md bg-[#d9d9d9]/30 placeholder:font-normal placeholder:text-black/40 outline-none focus:bg-[#d9d9d9]/50 transition-colors'
-              style={{ height: 80, fontSize: 24, paddingLeft: 40 }}
+              className='w-full text-left text-black font-bold rounded-md bg-[#d9d9d9]/30 placeholder:font-normal placeholder:text-black/40 outline-none focus:bg-[#d9d9d9]/50 transition-colors'
+              style={{ height: 80, fontSize: 18, paddingLeft: 40 }}
             />
           </div>
         </div>
       ))}
-    </StepShell>
-  );
-}
-
-function CodeScreen({
-  progress,
-  onSubmit,
-  onBack,
-}: {
-  progress: number;
-  onSubmit: () => void;
-  onBack: () => void;
-}) {
-  const [raw, setRaw] = useState('');
-  const [error, setError] = useState(false);
-
-  function submit() {
-    if (raw.length !== 6) return;
-    if (raw === DEMO_CODE) {
-      onSubmit();
-    } else {
-      setError(true);
-    }
-  }
-
-  return (
-    <StepShell
-      progress={progress}
-      question='Enter the verification code'
-      footer={
-        <>
-          <BackButton onClick={onBack} />
-          <ContinueButton
-            onClick={submit}
-            disabled={raw.length !== 6}
-            label='Verify'
-          />
-        </>
-      }
-    >
-      <p className='text-black/60 font-normal' style={{ fontSize: 16 }}>
-        We sent a 6-digit code to your phone. (Demo mode: use {DEMO_CODE}.)
-      </p>
-      <input
-        type='text'
-        inputMode='numeric'
-        autoFocus
-        value={raw}
-        placeholder='123456'
-        onChange={(e) => {
-          setError(false);
-          setRaw(e.target.value.replace(/[^0-9]/g, '').slice(0, 6));
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') submit();
-        }}
-        className='w-full text-left text-black font-black rounded-md bg-[#d9d9d9]/30 placeholder:font-normal placeholder:text-black/40 outline-none focus:bg-[#d9d9d9]/50 transition-colors'
-        style={{ height: 80, fontSize: 24, paddingLeft: 24 }}
-      />
-      {error && (
-        <p className='text-red-600 font-normal' style={{ fontSize: 14 }}>
-          That code didn&apos;t match. Try again.
-        </p>
-      )}
     </StepShell>
   );
 }
@@ -480,14 +420,6 @@ export function StepRenderer({
           accounts={answers[step.accountsKey] ?? []}
           progress={progress}
           onSubmit={(value) => onAdvance(patchOf(step.key, value))}
-          onBack={onBack}
-        />
-      );
-    case 'code':
-      return (
-        <CodeScreen
-          progress={progress}
-          onSubmit={() => onAdvance(patchOf(step.key, DEMO_CODE))}
           onBack={onBack}
         />
       );

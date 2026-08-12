@@ -17,8 +17,6 @@ export const BABY_STEP_OPTIONS = [
   'Step 7 - Build wealth and give',
 ];
 
-export const DEMO_CODE = '123456';
-
 export const LOADING_DURATION_MS = 5000;
 export const LOADING_MESSAGES = [
   'Analyzing your accounts...',
@@ -48,7 +46,6 @@ export type Answers = {
   spouseAccounts?: string[];
   spouseAccountBalances?: Record<string, string>;
   phone?: string;
-  code?: string;
 };
 
 export function patchOf<K extends keyof Answers>(
@@ -79,13 +76,11 @@ export type BalanceStep = BaseStep & {
   type: 'balance';
   accountsKey: 'accounts' | 'spouseAccounts';
 };
-export type CodeStep = BaseStep & { type: 'code' };
 export type StepDef =
   | InputStep
   | ChoiceStep
   | MultiselectStep
-  | BalanceStep
-  | CodeStep;
+  | BalanceStep;
 
 export const steps: StepDef[] = [
   {
@@ -186,11 +181,6 @@ export const steps: StepDef[] = [
     key: 'phone',
     question: 'What is your phone number?',
     placeholder: '(555) 555-5555',
-  },
-  {
-    type: 'code',
-    key: 'code',
-    question: 'Enter the verification code',
   },
 ];
 

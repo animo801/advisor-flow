@@ -15,8 +15,10 @@ export default function DonePage() {
     <div
       className={`${interTight.className} relative mx-auto text-center pt-32 px-6 max-w-[720px]`}
     >
-      <h2 className='text-black font-black text-4xl md:text-6xl'>
-        Thanks! We&apos;ll be in touch with your plan.
+      <h2 className='font-medium text-4xl md:text-6xl'>
+        Thanks for submitting!
+        <br />
+        <br /> We&apos;ll be in touch to talk about your review.
       </h2>
     </div>
   );
