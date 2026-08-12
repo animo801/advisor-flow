@@ -18,7 +18,7 @@ export default function DonePage() {
       <h2 className='font-medium text-4xl md:text-6xl'>
         Thanks for submitting!
         <br />
-        <br /> We&apos;ll be in touch to talk about your review.
+        <br /> We&apos;ll be in touch soon to talk about your review.
       </h2>
     </div>
   );
