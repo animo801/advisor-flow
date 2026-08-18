@@ -18,11 +18,11 @@ export default function Home() {
       {/* Left column: headline + subtext + CTA + social proof */}
       <div className='flex flex-col justify-center px-4 py-6 lg:py-24 lg:pl-[62px] lg:pr-12 lg:w-[768px] lg:flex-none w-full sm:max-w-[440px] md:max-w-none mx-auto'>
         <h1 className='font-bold text-black text-[30px] lg:text-[56px] leading-none max-w-[642px]'>
-          Stop dreading your future. Free retirement review for new clients.
+          Stop dreading your future. Get your free retirement review.
         </h1>
         <p className='mt-2 text-black text-xl lg:text-2xl max-w-[642px]'>
           Our team will go through your current plan and find opportunities to
-          improve. All free for new customers.
+          improve. All totally free for new customers.
         </p>
         <button
           onClick={start}

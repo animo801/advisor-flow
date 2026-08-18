@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import {
   patchOf,
+  resolveDescription,
   resolveQuestion,
   type Answers,
   type BalanceStep,
@@ -68,11 +69,13 @@ export function ContinueButton({
 function StepShell({
   progress,
   question,
+  description,
   children,
   footer,
 }: {
   progress: number;
   question: string;
+  description?: string;
   children: React.ReactNode;
   footer: React.ReactNode;
 }) {
@@ -88,6 +91,14 @@ function StepShell({
       >
         {question}
       </h2>
+      {description && (
+        <p
+          className='text-black/60 font-normal text-base'
+          style={{ marginTop: 12 }}
+        >
+          {description}
+        </p>
+      )}
       <div className='flex flex-col gap-4' style={{ marginTop: 45 }}>
         {children}
       </div>
@@ -121,12 +132,14 @@ function formatForKind(raw: string, kind: StepKind) {
 function InputScreen({
   step,
   question,
+  description,
   progress,
   onSubmit,
   onBack,
 }: {
   step: InputStep;
   question: string;
+  description?: string;
   progress: number;
   onSubmit: (value: string) => void;
   onBack: () => void;
@@ -148,6 +161,7 @@ function InputScreen({
     <StepShell
       progress={progress}
       question={question}
+      description={description}
       footer={
         <>
           <BackButton onClick={onBack} />
@@ -195,12 +209,14 @@ function InputScreen({
 function ChoiceScreen({
   step,
   question,
+  description,
   progress,
   onSelect,
   onBack,
 }: {
   step: ChoiceStep;
   question: string;
+  description?: string;
   progress: number;
   onSelect: (value: string) => void;
   onBack: () => void;
@@ -209,6 +225,7 @@ function ChoiceScreen({
     <StepShell
       progress={progress}
       question={question}
+      description={description}
       footer={<BackButton onClick={onBack} />}
     >
       {step.options.map((option) => (
@@ -232,12 +249,14 @@ function ChoiceScreen({
 function MultiselectScreen({
   step,
   question,
+  description,
   progress,
   onSubmit,
   onBack,
 }: {
   step: MultiselectStep;
   question: string;
+  description?: string;
   progress: number;
   onSubmit: (value: string[]) => void;
   onBack: () => void;
@@ -256,6 +275,7 @@ function MultiselectScreen({
     <StepShell
       progress={progress}
       question={question}
+      description={description}
       footer={
         <>
           <BackButton onClick={onBack} />
@@ -301,6 +321,7 @@ function MultiselectScreen({
 function BalanceScreen({
   step,
   question,
+  description,
   accounts,
   progress,
   onSubmit,
@@ -308,6 +329,7 @@ function BalanceScreen({
 }: {
   step: BalanceStep;
   question: string;
+  description?: string;
   accounts: string[];
   progress: number;
   onSubmit: (value: Record<string, string>) => void;
@@ -320,6 +342,7 @@ function BalanceScreen({
     <StepShell
       progress={progress}
       question={question}
+      description={description}
       footer={
         <>
           <BackButton onClick={onBack} />
@@ -381,12 +404,14 @@ export function StepRenderer({
   onBack: () => void;
 }) {
   const question = resolveQuestion(step, answers);
+  const description = resolveDescription(step, answers);
   switch (step.type) {
     case 'input':
       return (
         <InputScreen
           step={step}
           question={question}
+          description={description}
           progress={progress}
           onSubmit={(value) => onAdvance(patchOf(step.key, value))}
           onBack={onBack}
@@ -397,6 +422,7 @@ export function StepRenderer({
         <ChoiceScreen
           step={step}
           question={question}
+          description={description}
           progress={progress}
           onSelect={(value) => onAdvance(patchOf(step.key, value))}
           onBack={onBack}
@@ -407,6 +433,7 @@ export function StepRenderer({
         <MultiselectScreen
           step={step}
           question={question}
+          description={description}
           progress={progress}
           onSubmit={(value) => onAdvance(patchOf(step.key, value))}
           onBack={onBack}
@@ -417,6 +444,7 @@ export function StepRenderer({
         <BalanceScreen
           step={step}
           question={question}
+          description={description}
           accounts={answers[step.accountsKey] ?? []}
           progress={progress}
           onSubmit={(value) => onAdvance(patchOf(step.key, value))}

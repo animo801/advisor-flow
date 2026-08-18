@@ -60,6 +60,7 @@ export type StepKind = 'number' | 'currency' | 'text' | 'phone';
 export type BaseStep = {
   key: keyof Answers;
   question: string | ((a: Answers) => string);
+  description?: string | ((a: Answers) => string);
   when?: (a: Answers) => boolean;
 };
 export type InputStep = BaseStep & {
@@ -149,7 +150,12 @@ export const steps: StepDef[] = [
   {
     type: 'multiselect',
     key: 'accounts',
-    question: 'Which retirement accounts do you have?',
+    question: (a) =>
+      a.name
+        ? `What retirement accounts does ${a.name} have?`
+        : 'What retirement accounts do you have?',
+    description: (a) =>
+      `These are only accounts owned or co-owned by ${a.name || 'you'}. We will ask about spouse's accounts shortly.`,
     options: ACCOUNT_OPTIONS,
   },
   {
@@ -190,6 +196,12 @@ export function isVisible(step: StepDef, a: Answers) {
 
 export function resolveQuestion(step: StepDef, a: Answers) {
   return typeof step.question === 'function' ? step.question(a) : step.question;
+}
+
+export function resolveDescription(step: StepDef, a: Answers) {
+  return typeof step.description === 'function'
+    ? step.description(a)
+    : step.description;
 }
 
 /** Derives a stable URL slug from a step's key, e.g. "spouseAge" -> "spouse-age". */
