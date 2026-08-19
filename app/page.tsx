@@ -21,8 +21,8 @@ export default function Home() {
           Stop dreading your future. Get your free retirement review.
         </h1>
         <p className='mt-2 text-black text-xl lg:text-2xl max-w-[642px]'>
-          Our team will go through your current plan and find opportunities to
-          improve. All totally free for new customers.
+          Our team will go through your current plan and find places to improve.
+          All totally free for new customers.
         </p>
         <button
           onClick={start}
