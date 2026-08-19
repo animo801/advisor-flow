@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAnswers } from '@/components/flow-provider';
 import { StepRenderer } from '@/components/step-screens';
-import { trackLead } from '@/lib/meta-pixel';
+import { trackLead, trackLeadSubmitted } from '@/lib/meta-pixel';
 import { submitLeadToSheet } from '@/lib/sheets';
 import {
   isVisible,
@@ -44,7 +44,10 @@ export default function FlowStepPage() {
     const next = nextVisibleIndex(stepIndex + 1, merged);
     const isComplete = next >= steps.length;
     if (isComplete) {
-      if (merged.phone) trackLead({ phone: merged.phone, name: merged.name });
+      if (merged.phone) {
+        trackLead({ phone: merged.phone, name: merged.name });
+        trackLeadSubmitted({ phone: merged.phone, name: merged.name });
+      }
       submitLeadToSheet(merged);
     }
     router.push(isComplete ? '/loading' : `/flow/${slugFor(steps[next].key)}`);

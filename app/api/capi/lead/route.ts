@@ -9,6 +9,7 @@ function hash(value: string) {
 }
 
 type LeadPayload = {
+  eventName?: string;
   eventId?: string;
   eventSourceUrl?: string;
   phone?: string;
@@ -16,8 +17,9 @@ type LeadPayload = {
   fbc?: string;
 };
 
-// Sends a server-side "Lead" event to the Meta Conversions API, matched to
-// the browser-side Pixel event via a shared event ID (see lib/meta-pixel.ts).
+// Sends a server-side event (e.g. "Lead", "Lead Submitted") to the Meta
+// Conversions API, matched to the browser-side Pixel event via a shared
+// event ID (see lib/meta-pixel.ts).
 export async function POST(request: NextRequest) {
   const accessToken = process.env.FACEBOOK_CAPI_CODE;
   if (!accessToken) {
@@ -25,7 +27,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false }, { status: 500 });
   }
 
-  const { eventId, eventSourceUrl, phone, fbp, fbc } =
+  const { eventName = 'Lead', eventId, eventSourceUrl, phone, fbp, fbc } =
     (await request.json()) as LeadPayload;
 
   if (!eventId) {
@@ -58,7 +60,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         data: [
           {
-            event_name: 'Lead',
+            event_name: eventName,
             event_time: Math.floor(Date.now() / 1000),
             event_id: eventId,
             event_source_url: eventSourceUrl,

@@ -1,5 +1,5 @@
 /** Shared between the client-side Meta Pixel script and the server-side Conversions API. */
-export const META_PIXEL_ID = '1846400513434397';
+export const META_PIXEL_ID = '1312485314295832';
 
 declare global {
   interface Window {
@@ -15,19 +15,29 @@ function getCookie(name: string): string | undefined {
 }
 
 /**
- * Fires a Meta "Lead" event from the browser (via the Pixel) and the server
- * (via the Conversions API) with a shared event ID so Meta dedupes them into
- * a single event. Call this once, right when a lead is captured.
+ * Fires a Meta event from the browser (via the Pixel) and the server (via
+ * the Conversions API) with a shared event ID so Meta dedupes them into a
+ * single event.
  */
-export function trackLead(data: { phone: string; name?: string }) {
+function trackEvent(
+  eventName: string,
+  isStandardEvent: boolean,
+  data: { phone: string; name?: string },
+) {
   const eventId = crypto.randomUUID();
 
-  window.fbq?.('track', 'Lead', {}, { eventID: eventId });
+  window.fbq?.(
+    isStandardEvent ? 'track' : 'trackCustom',
+    eventName,
+    {},
+    { eventID: eventId },
+  );
 
   fetch('/api/capi/lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+      eventName,
       eventId,
       eventSourceUrl: window.location.href,
       phone: data.phone,
@@ -40,4 +50,20 @@ export function trackLead(data: { phone: string; name?: string }) {
   });
 
   return eventId;
+}
+
+/**
+ * Fires Meta's standard "Lead" event. Call this once, right when a lead is
+ * captured.
+ */
+export function trackLead(data: { phone: string; name?: string }) {
+  return trackEvent('Lead', true, data);
+}
+
+/**
+ * Fires a custom "Lead Submitted" event. Call this once, right when someone
+ * finishes the entire flow.
+ */
+export function trackLeadSubmitted(data: { phone: string; name?: string }) {
+  return trackEvent('Lead Submitted', false, data);
 }
